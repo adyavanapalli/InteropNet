@@ -1,17 +1,19 @@
 CC=gcc
 CCFLAGS=-Wall -Wextra -Wpedantic
 INCLUDE=-I include/
+LIB=-L lib
+SHARED=-shared -fPIC
 OPT=-O3
 
-all: obj/prime-pi.o bin/prime-pi
+all: lib/libprime-pi.so bin/prime-pi
 
-obj/prime-pi.o: include/constants.h include/prime-pi.h
-	$(CC) $(CCFLAGS) $(INCLUDE) $(OPT) -c src/prime-pi.c -o obj/prime-pi.o
+lib/libprime-pi.so: include/constants.h include/prime-pi.h
+	$(CC) $(CCFLAGS) $(INCLUDE) $(SHARED) $(OPT) -c src/prime-pi.c -o lib/libprime-pi.so
 
-bin/prime-pi: obj/prime-pi.o src/main.c
-	$(CC) $(CCFLAGS) $(INCLUDE) $(OPT) src/main.c obj/prime-pi.o -o bin/prime-pi
+bin/prime-pi: lib/libprime-pi.so src/main.c
+	$(CC) $(CCFLAGS) $(INCLUDE) $(LIB) $(OPT) src/main.c -o bin/prime-pi -lprime-pi
 
 clean:
-	rm -f bin/* obj/*
+	rm -f bin/* lib/* obj/*
 
 .PHONY=all clean

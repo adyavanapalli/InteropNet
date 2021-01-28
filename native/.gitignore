@@ -1,3 +1,4 @@
 bin/*
 obj/*
+lib/*
 !.do_not_delete
