@@ -8,10 +8,15 @@ namespace Interop
         [DllImport("../Native/lib/libprime-pi.so", EntryPoint = "prime_pi")]
         private static extern ulong PrimePi(ulong n);
 
-        static void Main()
+        static void Main(string[] args)
         {
-            ulong n = 1_000_000;
-            Console.WriteLine($"prime_pi({n}): {PrimePi(1_000_000)}");
+            if (args.Length != 1 || !ulong.TryParse(args[0], out ulong n))
+            {
+                Console.WriteLine("Usage: dotnet run -- <N>");
+                return;
+            }
+
+            Console.WriteLine($"prime_pi({n}): {PrimePi(n)}");
         }
     }
 }
