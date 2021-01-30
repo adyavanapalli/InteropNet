@@ -10,7 +10,7 @@ namespace Interop
 
         static void Main(string[] args)
         {
-            if (args.Length != 1 || !ulong.TryParse(args[0], out ulong n))
+            if (args is null || args.Length != 1 || !ulong.TryParse(args[0], out ulong n))
             {
                 Console.WriteLine("Usage: dotnet run -- <N>");
                 return;
