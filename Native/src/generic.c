@@ -1,0 +1,6 @@
+// generic.c
+
+int main()
+{
+
+}
